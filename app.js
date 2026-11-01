@@ -15,7 +15,6 @@
   progress.passed = progress.passed || {};
   progress.bonus = progress.bonus || {};
   const save = () => { try { localStorage.setItem(STORE, JSON.stringify(progress)); } catch (e) { /* private mode */ } };
-  const isUnlocked = id => id === 1 || !!progress.passed[id - 1];
   const stars = s => (s >= 10 ? '★★★' : s >= 9 ? '★★☆' : s >= 8 ? '★☆☆' : '');
 
   // ---------- audio ----------
@@ -220,17 +219,17 @@
     app.innerHTML = `
       <header class="hero">
         <h1>Piano Tutor</h1>
-        <p>Learn to read piano music in ten levels, from your first note to famous chord progressions. Pass each level’s test (8 out of 10) to unlock the next one.</p>
+        <p>Learn to read piano music in ten levels, from your first note to famous chord progressions. Start anywhere: every level is open. Each one ends with a test (8 out of 10 passes) and a bonus song.</p>
         <div class="bar"><div style="width:${passed * 10}%"></div></div>
         <div class="muted small">${passed} of 10 levels passed</div>
       </header>
       <div class="levels">
         ${LEVELS.map(L => {
-          const un = isUnlocked(L.id), ps = progress.passed[L.id], best = progress.best[L.id];
+          const ps = progress.passed[L.id], best = progress.best[L.id];
           const status = ps ? `<span class="stars">${stars(best)}</span> ${best}/10`
-            : un ? (best != null ? `Best ${best}/10` : 'Start →') : `🔒 Pass level ${L.id - 1}`;
+            : best != null ? `Best ${best}/10` : 'Start →';
           const bb = progress.bonus[L.id];
-          return `<button class="level${un ? '' : ' locked'}${ps ? ' passed' : ''}" data-id="${L.id}" ${un ? '' : 'disabled'}>
+          return `<button class="level${ps ? ' passed' : ''}" data-id="${L.id}">
             <span class="num">${L.id}</span><span class="lt">${L.title}</span><span class="lb">${L.blurb}</span><span class="ls">${status}${bb != null ? ` <span class="bonusbadge">♪ ${bb}%</span>` : ''}</span></button>`;
         }).join('')}
       </div>
@@ -474,7 +473,7 @@
     pane.innerHTML = `
       <section class="card center">
         <h2>Level ${L.id} test</h2>
-        <p>10 questions${L.testMix ? ', including review from earlier levels' : ''}, no hints. Get <b>8 or more</b> right to pass${L.id < 10 ? ` and unlock Level ${L.id + 1}` : ''}.</p>
+        <p>10 questions${L.testMix ? ', including review from earlier levels' : ''}, no hints. Get <b>8 or more</b> right to pass.</p>
         ${best != null ? `<p class="muted">Your best: ${best}/10 <span class="stars">${stars(best)}</span></p>` : ''}
         <button class="primary big start">Start the test</button>
       </section>`;
@@ -509,7 +508,7 @@
     if (pass) progress.passed[L.id] = true;
     save();
     const missed = results.filter(r => !r.ok);
-    const passMsg = L.id < 10 ? (wasPassed ? '' : `Level ${L.id + 1} is unlocked.`) : 'You’ve finished all ten levels. Try the Progression Studio next.';
+    const passMsg = L.id < 10 ? (wasPassed ? '' : `Ready for Level ${L.id + 1}.`) : 'You’ve finished all ten levels. Try the Progression Studio next.';
     pane.innerHTML = `
       <section class="card center result">
         <div class="big-score ${pass ? 'ok' : 'bad'}">${score}<span>/10</span></div>

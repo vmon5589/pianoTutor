@@ -32,7 +32,7 @@ An interactive app that teaches you to read sheet music. Open `index.html` in a 
   - multiple choice
   - tap the right spot on the staff
   - tap the right piano key
-- **Test:** 10 questions, and 8 or more passes the level. Passing unlocks the next level and earns stars. Level 10's test mixes in material from every level.
+- **Test:** 10 questions, and 8 or more passes the level. Passing earns stars. Every level is open from the start (progress lives only in this browser's localStorage, so locking would strand people on a new device or after clearing data). Level 10's test mixes in material from every level.
 - Progress is saved in the browser (`localStorage` key `pianoTutor.v1`). The home screen has a reset button.
 - Keyboard shortcuts: letters A–G, 1–9 for choices, Enter to go on, arrow keys for lesson cards.
 
