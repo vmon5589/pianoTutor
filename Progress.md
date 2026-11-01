@@ -76,7 +76,9 @@ Requests, in order, and what was built for each:
 3. **Hand silhouettes showing finger positions.** Drawn over the keyboards in lessons, bonus songs and the Studio, with automatic fingering.
 4. **Toggle the hands like the piano.** Added a ✋ Hands button that is remembered.
 5. **Make sure it all works on mobile.** Phone layout, scrolling keyboards, pinned play-along, iOS audio. Tested on emulated phones.
-6. **Prepare for GitHub Pages.** Set up a local git repo and commit. The push is still to do (see Hosting).
+6. **Prepare for GitHub Pages.** Set up a local git repo and commit. Vince pushed it (see Hosting).
+7. **Open every level.** Progress only lives in one browser's localStorage, so locking levels behind earlier tests would strand people on a new device. Every level can now be selected from the start (details below).
+8. **Home intro wording.** "Start anywhere: every level is open." became "Select a level."
 
 The app was viewed in a (headless) browser for the first time today. Screenshots were checked on desktop, iPhone and Android sizes.
 
@@ -124,14 +126,21 @@ The app was viewed in a (headless) browser for the first time today. Screenshots
 - **Verified** in headless Chrome emulating iPhone 13 and Pixel 5 (portrait), plus both in landscape. All 10 bonus songs were played start to finish with real touch taps at screen coordinates. Every needed key was scrolled into view automatically (0 misses), with no page overflow and no errors. The desktop tests were rerun and still pass.
 - Not tested on a physical phone: real Safari audio and how the touch feels.
 
+## 2026-11-01 — All levels open
+- Removed `isUnlocked` from `app.js`. Level cards are never disabled, and the 🔒 "Pass level N" status and the `.level.locked` CSS are gone. Cards for levels not yet passed show "Start →" or "Best N/10".
+- Scores, stars, bonus-song badges and "N of 10 levels passed" are still saved. They are now just a record.
+- Wording: the home intro says "Select a level. Each one ends with a test (8 out of 10 passes) and a bonus song." The test intro no longer says "and unlock Level N". The pass screen says "Ready for Level N." and keeps its "Level N →" button.
+- Verified in a fresh browser (no saved progress): 0 disabled cards, Level 10 and its bonus song open directly, no page errors.
+
 ## Hosting
-- **GitHub repo:** https://github.com/vmon5589/pianoTutor. It is empty until the first push.
-- **Status (2026-11-01):** local git repo set up on branch `main` with one commit containing the whole app. Not pushed yet: Claude Code's permission rules blocked adding the remote and pushing, so Vince will push it.
+- **GitHub repo:** https://github.com/vmon5589/pianoTutor. The app is pushed to `main`.
+- **Status (2026-11-01):** Vince added the remote and pushed. `origin/main` is up to date as of commit `d758f8c` ("Select a level"), not counting this Progress.md update.
+- **Rule for Claude:** never push unless Vince says to, or Claude asks and Vince approves. Commit locally, then ask.
 - **First push:**
   1. Log in to GitHub on this Mac. Either run `brew install gh && gh auth login`, or use a personal access token (classic, `repo` scope) as the password when git asks.
   2. Run `git remote add origin https://github.com/vmon5589/pianoTutor.git && git push -u origin main`.
 - **Turn on Pages:** repo **Settings → Pages → Deploy from a branch → `main` / `(root)` → Save**. The site goes live at https://vmon5589.github.io/pianoTutor/ after a minute or two. On a free account the repo must be public.
-- **Later updates:** `git add -A && git commit -m "…" && git push`.
+- **Later updates:** `git add -A && git commit -m "…"; git push`. Use `;` before `git push`, not `&&`. With `&&`, a "nothing to commit" (when the work is already committed) counts as a failure and skips the push.
 - **Notes:**
   - All paths are relative, so the app works from the `/pianoTutor/` subpath.
   - Progress is saved per device, in each browser's localStorage.
@@ -146,4 +155,4 @@ The app was viewed in a (headless) browser for the first time today. Screenshots
 - Bonus song arrangements (left-hand parts are simplified) and tempos.
 - Try it on a real phone: Safari audio (including with the silent switch on), how the tapping feels, and the auto-scrolling keyboard.
 - Phone play-along with both hands far apart: the keyboard shows the lower hand first and slides to the other after you play it. Check that this feels natural.
-- Push to GitHub and turn on Pages (see Hosting).
+- Confirm Pages is turned on and https://vmon5589.github.io/pianoTutor/ loads (see Hosting).
