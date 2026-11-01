@@ -219,7 +219,7 @@
     app.innerHTML = `
       <header class="hero">
         <h1>Piano Tutor</h1>
-        <p>Learn to read piano music in ten levels, from your first note to famous chord progressions. Start anywhere: every level is open. Each one ends with a test (8 out of 10 passes) and a bonus song.</p>
+        <p>Learn to read piano music in ten levels, from your first note to famous chord progressions. Select a level. Each one ends with a test (8 out of 10 passes) and a bonus song.</p>
         <div class="bar"><div style="width:${passed * 10}%"></div></div>
         <div class="muted small">${passed} of 10 levels passed</div>
       </header>
