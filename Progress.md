@@ -69,6 +69,17 @@ An interactive app that teaches you to read sheet music. Open `index.html` in a 
 - Lesson piano check: all 72 cards and variants that get the piano have every note within the keyboard range and valid timing.
 - **Not yet viewed in a browser.** Vince judges the visuals.
 
+## 2026-11-01 — Summary of the day
+Requests, in order, and what was built for each:
+1. **A "bonus test" song per level** that mixes what was tested and lets you play along. Added a ♪ Bonus song tab with 10 songs, Listen, and a play-along that waits for you and gives a score.
+2. **A made-up song should have a pattern to its notes.** Nine songs are real public-domain tunes. The Level 10 original, "Sunday Drive", is built from repeated rhythms and melody shapes (details below).
+3. **Hand silhouettes showing finger positions.** Drawn over the keyboards in lessons, bonus songs and the Studio, with automatic fingering.
+4. **Toggle the hands like the piano.** Added a ✋ Hands button that is remembered.
+5. **Make sure it all works on mobile.** Phone layout, scrolling keyboards, pinned play-along, iOS audio. Tested on emulated phones.
+6. **Prepare for GitHub Pages.** Set up a local git repo and commit. The push is still to do (see Hosting).
+
+The app was viewed in a (headless) browser for the first time today. Screenshots were checked on desktop, iPhone and Android sizes.
+
 ## 2026-11-01 — Bonus songs and hands
 
 ### Bonus song (4th tab on every level)
@@ -114,7 +125,18 @@ An interactive app that teaches you to read sheet music. Open `index.html` in a 
 - Not tested on a physical phone: real Safari audio and how the touch feels.
 
 ## Hosting
-- GitHub repo: https://github.com/vmon5589/pianoTutor. It is served with GitHub Pages from the `main` branch root, at https://vmon5589.github.io/pianoTutor/ once Pages is turned on.
+- **GitHub repo:** https://github.com/vmon5589/pianoTutor. It is empty until the first push.
+- **Status (2026-11-01):** local git repo set up on branch `main` with one commit containing the whole app. Not pushed yet: Claude Code's permission rules blocked adding the remote and pushing, so Vince will push it.
+- **First push:**
+  1. Log in to GitHub on this Mac. Either run `brew install gh && gh auth login`, or use a personal access token (classic, `repo` scope) as the password when git asks.
+  2. Run `git remote add origin https://github.com/vmon5589/pianoTutor.git && git push -u origin main`.
+- **Turn on Pages:** repo **Settings → Pages → Deploy from a branch → `main` / `(root)` → Save**. The site goes live at https://vmon5589.github.io/pianoTutor/ after a minute or two. On a free account the repo must be public.
+- **Later updates:** `git add -A && git commit -m "…" && git push`.
+- **Notes:**
+  - All paths are relative, so the app works from the `/pianoTutor/` subpath.
+  - Progress is saved per device, in each browser's localStorage.
+  - Web MIDI needs HTTPS, so MIDI keyboards should work on github.io in Chrome and Edge.
+  - On iPhone, Share → Add to Home Screen opens it like an app.
 
 ## Open items / tunables to judge on screen
 - Look of the hand-drawn clefs, flags, rests and note spacing.
@@ -122,3 +144,6 @@ An interactive app that teaches you to read sheet music. Open `index.html` in a 
 - Known limitation: during playback a column of only rests lights no keys.
 - Hand silhouette shape and size, and whether auto-fingering choices feel natural (it's a simple five-finger-position rule, not a pianist's fingering).
 - Bonus song arrangements (left-hand parts are simplified) and tempos.
+- Try it on a real phone: Safari audio (including with the silent switch on), how the tapping feels, and the auto-scrolling keyboard.
+- Phone play-along with both hands far apart: the keyboard shows the lower hand first and slides to the other after you play it. Check that this feels natural.
+- Push to GitHub and turn on Pages (see Hosting).
